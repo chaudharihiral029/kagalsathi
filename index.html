@@ -2006,3 +2006,303 @@ footer { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
       <a href="https://www.digitalgujarat.gov.in" target="_blank" rel="noopener">Digital Gujarat</a> અને
       <a href="https://uidai.gov.in" target="_blank" rel="noopener">UIDAI</a> જુઓ.</p>
     
+કાગળસાથી — ફક્ત નવો કોડ (આખી index.html નથી)
+================================================
+ચાર ભાગ છે (ફૂટર/કૉપિરાઇટ આમાં નથી, તે તમે પહેલેથી કરી દીધું છે). દરેકમાં લખ્યું છે કે કયો ભાગ શોધવો અને ક્યાં મૂકવો.
+પહેલાં આપેલા જૂના snippet (online-bharti-snippet) નો ઉપયોગ કરશો નહીં; ભાગ 4 તેને બદલે છે.
+
+
+################################################################
+ભાગ 1: નાના ફેરફાર (શોધો → બદલો)  [Ctrl+F થી શોધો]
+################################################################
+
+1A) ટિયર: શોધો
+ncl: 2, ews: 2, domicile: 2, khedut: 2, senior: 2,
+બદલો
+ncl: 2, ews: 2, domicile: 2, khedut: 2, senior: 2, widow: 2,
+
+1B) ટિયર: શોધો
+voter: 3, pan: 3, license: 3, udid: 3
+બદલો
+voter: 3, pan: 3, license: 3, udid: 3, pcc: 3, gazette: 3
+
+1C) CSS: શોધો
+.optpill {
+તેની ઠીક ઉપર આ બે લીટી ઉમેરો
+.mandpill { font-style: normal; font-size: 0.74rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--good-bg); color: var(--good); white-space: nowrap; }
+.badge-legend { font-size: 0.86rem; color: var(--muted); margin: 6px 0 2px; }
+
+1D) બેજ: શોધો
+(opt(p) ? ' <em class="optpill">વૈકલ્પિક</em>' : '')
+બદલો
+(opt(p) ? ' <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em>' : ' <em class="mandpill">જરૂરી</em>')
+
+1E) બેજની સમજૂતી: શોધો
+'<div class="block"><h3>સાથે લઈ જવાના કાગળ</h3>' +
+તેની નીચેની નવી લીટીમાં ઉમેરો
+'<p class="badge-legend"><em class="mandpill">જરૂરી</em> બધા માટે &nbsp; <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em> ફક્ત તમારા કેસમાં હોય તો</p>' +
+
+
+
+################################################################
+ભાગ 2: નવા 3 દસ્તાવેજ (સોગંદનામું, Udyam + GST, KCC)
+################################################################
+શોધો:  ICONS.pcc =
+એ લીટી પછી તરત નીચે આખો બ્લોક પેસ્ટ કરો:
+
+  // ===== નવા 3 દસ્તાવેજ: સોગંદનામું, Udyam + GST, KCC (સંશોધન નોંધ, ચકાસવાના બાકી) =====
+  DOCS.push(
+    {
+      id: "affidavit", name: "સોગંદનામું (નોટરી / e-Stamp)", en: "Notarized affidavit (₹20 / ₹50 / ₹100 stamp)",
+      where: "તાલુકા મથકે નોટરી પબ્લિક (કોર્ટ કમ્પાઉન્ડ કે મામલતદાર કચેરી પાસે) અને e-Stamp વેન્ડર; કેટલાક કામમાં મામલતદાર કચેરી",
+      papers: ["અરજદારનું આધાર કાર્ડ (રૂબરૂ હાજરી જરૂરી)", "~જે વિગત સાબિત કરવી હોય તેનો પુરાવો (LC, રેશન કાર્ડ, 7/12 કે મરણનો દાખલો)"],
+      steps: ["કયા કામ માટે સોગંદનામું જોઈએ છે તે કચેરીમાં પૂછી લો અને તેની પ્રમાણે લખાણ નક્કી કરો.", "e-Stamp વેન્ડર પાસેથી જોઈતા મૂલ્યનો e-Stamp (સામાન્ય રીતે ₹20 કે ₹50, ખાસ કામમાં ₹100) લો.", "નોટરી સામે રૂબરૂ હાજર રહી આધાર બતાવી સહી કરો.", "સિક્કો, નોટરી નંબર અને રજિસ્ટર એન્ટ્રી નંબર તપાસીને નકલ સાચવો."],
+      fee: null, feeText: "e-Stamp ની કિંમત ઉપરાંત નોટરી/ટાઇપિંગ ચાર્જ ₹100 થી ₹300 જણાવાય છે (સંશોધન નોંધ મુજબ, ચકાસો). પાકી રસીદ માંગો.", time: "રૂબરૂ હાજર હોઈએ તો લગભગ 15-20 મિનિટ",
+      tip: "નામ-અટકની ભૂલ, પેઢીનામું, વિધવા પ્રમાણપત્ર, આવક/જાતિ/લગ્ન નોંધણી અને જન્મ-મરણ સુધારામાં બાહેંધરી માટે કામ લાગે. કયા કામમાં કયું સ્ટેમ્પ મૂલ્ય ચાલે તે કચેરીમાં ચકાસો."
+    },
+    {
+      id: "udyam", name: "Udyam (MSME) અને GST નોંધણી", en: "Udyam (MSME) and GST registration",
+      where: "ગ્રામ પંચાયતનું VCE / CSC કેન્દ્ર, અથવા ઓનલાઇન udyamregistration.gov.in અને gst.gov.in",
+      papers: ["આધાર કાર્ડ (મોબાઇલ નંબર જોડાયેલો)", "PAN કાર્ડ", "બેંક ખાતાની વિગત (પાસબુક કે રદ કરેલ ચેક)", "દુકાન/વ્યવસાયના સરનામાનો પુરાવો (લાઇટ બિલ કે વેરા બિલ)", "~ભાડાની દુકાન હોય તો ભાડા કરાર અને માલિકનું NOC", "~ભાગીદારી પેઢી હોય તો Partnership Deed"],
+      steps: ["આધાર અને PAN માં નામ અને જન્મ તારીખ એકસરખા છે તે તપાસો.", "VCE/CSC કેન્દ્ર પર કે સત્તાવાર પોર્ટલ પર Udyam માટે આધાર OTP થી અરજી કરાવો.", "વાર્ષિક ટર્નઓવર GST મર્યાદાથી વધુ હોય કે બીજા રાજ્યમાં/ઓનલાઇન વેચાણ હોય તો GST નોંધણી પણ કરાવો.", "સર્ટિફિકેટ ડાઉનલોડ કરી બેંકમાં લોન કે કરંટ ખાતા માટે વાપરો."],
+      fee: 0, time: "Udyam: સામાન્ય રીતે 24 કલાક; GST: 3-7 દિવસ જણાવાય છે (ચકાસો)",
+      tip: "કરિયાણાની દુકાન, એગ્રો સેન્ટર, ડેરી/પશુપાલન, સિલાઈ, રિપેરિંગ અને કારીગરો માટે. બંને સરકારી પોર્ટલ પર નોંધણી મફત છે. GST ₹40 લાખ (માલ) કે ₹20 લાખ (સેવા) ટર્નઓવરથી વધુ હોય ત્યારે ફરજિયાત હોવાનું સંશોધન નોંધમાં છે; ચકાસો."
+    },
+    {
+      id: "kcc", name: "કિસાન ક્રેડિટ કાર્ડ (KCC) અને પાક ધિરાણ", en: "Kisan Credit Card (KCC) and crop loan papers",
+      where: "ગામની સેવા સહકારી મંડળી (PACS), જિલ્લા સહકારી બેંક કે રાષ્ટ્રીયકૃત બેંકની શાખા",
+      papers: ["ડિજિટલ સહીવાળો 7/12", "8-અ", "હક્ક પત્રક નં. 6", "ખેડૂતનું આધાર કાર્ડ", "PAN કાર્ડ", "બેંક પાસબુક", "પાસપોર્ટ સાઇઝ ફોટો", "~મોટી રકમની લોન માટે iORA પર જમીન પર બોજો દાખલ કરવાના કાગળ", "~લોન પૂરી થયા પછી બોજો કમી કરવા બેંકનું No Due Certificate (NDC)"],
+      steps: ["ડિજિટલ 7/12, 8-અ અને હક્ક પત્રક નં. 6 કઢાવી લો.", "ગામની મંડળી કે બેંકમાં KCC અને પાક ધિરાણ માટે અરજી કરો.", "મોટી રકમ હોય તો બેંક iORA પર બોજો દાખલ કરાવે તે રસીદ સાથે સાચવો.", "લોન પૂરી ભરપાઈ થાય એટલે NDC લઈ બોજો કમી કરાવો."],
+      fee: null, feeText: "ફીની વિગત બેંક/મંડળીમાં પૂછો (સંશોધન નોંધમાં સ્પષ્ટ ફી નથી).", time: "લગભગ 7 થી 15 કામકાજના દિવસ જણાવાય છે (ચકાસો)",
+      tip: "બિયારણ, ખાતર, દવા માટે ઓછા વ્યાજે ધિરાણ. વ્યાજ સહાય સમયસર ભરપાઈ પર મળવાનું જણાવાય છે. સંશોધન નોંધમાંની ₹1.60 લાખની મર્યાદા બદલાઈ હોઈ શકે, બેંકમાં ચકાસો. લોન પૂરી થયા પછી NDC લઈ બોજો કમી કરાવવો ફરજિયાત હોવાનું જણાવાય છે."
+    }
+  );
+  TIER.affidavit = 2; TIER.udyam = 2; TIER.kcc = 2;
+  CATOF.affidavit = "cert"; CATOF.udyam = "other"; CATOF.kcc = "scheme";
+  KW.affidavit = "સોગંદનામું નોટરી estamp સ્ટેમ્પ one same person નામ ભૂલ"; KW.udyam = "udyam msme gst દુકાન વેપાર કારીગર લોન મુદ્રા"; KW.kcc = "kcc કિસાન ક્રેડિટ ખેતી લોન પાક ધિરાણ બોજો ndc iora";
+  THEME.affidavit = [20, "55%"]; THEME.udyam = [210, "58%"]; THEME.kcc = [110, "52%"];
+  ICONS.affidavit = ICONS.gazette; ICONS.udyam = ICONS.income; ICONS.kcc = ICONS.land;
+  EXTRA.affidavit = {
+    chain: { next: ["આવક, જાતિ, NCL, EWS", "પેઢીનામું અને લગ્ન નોંધણી"] },
+    mis: "આધાર અને LC/7-12 માં નામ અલગ હોય તો 'બંને નામ એક જ વ્યક્તિના છે (One & Same Person)' નું સોગંદનામું જોડો.",
+    rural: "ગામડાના લોકોને તાલુકા મથકે (કોર્ટ કમ્પાઉન્ડ કે મામલતદાર કચેરી પાસે) e-Stamp વેન્ડર અને નોટરી મળી રહે છે.",
+    urgent: "અરજદાર રૂબરૂ હાજર હોય તો સામાન્ય રીતે 15-20 મિનિટમાં સોગંદનામું તૈયાર થઈ જાય છે.",
+    scam: "e-Stamp પર SHCIL નો બારકોડ/સર્ટિફિકેટ નંબર હોવો જોઈએ, અને નોટરીનો સિક્કો, રજિસ્ટ્રેશન નંબર તથા રજિસ્ટર એન્ટ્રી નંબર હોવો જોઈએ.",
+    src: ["Gujarat Stamp Act, 1958 અને Notaries Act, 1952", "e-Stamp: shcilestamp.com"]
+  };
+  EXTRA.udyam = {
+    chain: { next: ["બેંક કરંટ ખાતું", "મુદ્રા / PMEGP લોન", "સરકારી ટેન્ડર"] },
+    mis: "Udyam પોર્ટલ સીધું આધાર અને PAN સાથે જોડાયેલું છે, એટલે બંનેમાં નામ અને જન્મ તારીખ એકસરખા હોવા જોઈએ.",
+    rural: "ગામના વેપારીઓ ગ્રામ પંચાયતના VCE / CSC કેન્દ્રથી લગભગ 10 મિનિટમાં મફત Udyam સર્ટિફિકેટ કઢાવી શકે છે.",
+    urgent: "Udyam 24 કલાકમાં બની જાય છે; GST માં આધાર ઓથેન્ટિકેશન થાય તો 3-7 દિવસમાં નંબર મળે છે.",
+    scam: "કેટલીક ખાનગી વેબસાઇટ Udyam ના નામે ₹1,500 થી ₹3,000 પડાવે છે. સત્તાવાર વેબસાઇટ ફક્ત udyamregistration.gov.in (.gov.in) છે, જ્યાં નોંધણી મફત છે.",
+    src: ["Udyam: udyamregistration.gov.in", "GST: gst.gov.in", "હેલ્પલાઇન: 1800-180-6763 / 1800-103-4786 (ચકાસો)", "MSME Development Act, 2006 અને CGST/GGST Act, 2017"]
+  };
+  EXTRA.kcc = {
+    chain: { need: ["ડિજિટલ 7/12, 8-અ અને હક્ક પત્રક નં. 6", "આધાર, PAN અને બેંક પાસબુક"], next: ["સસ્તું પાક ધિરાણ અને KCC RuPay કાર્ડ", "પાક વીમા/સહાય સાથે જોડાણ"] },
+    mis: "7/12 અને આધાર/બેંક ખાતામાં ખેડૂતના નામની જોડણી અલગ હોય તો વ્યાજ સહાય (DBT) ખાતામાં જમા થતી અટકી શકે.",
+    rural: "ગામના ખેડૂતો માટે સેવા સહકારી મંડળી (મંડળી) મારફતે KCC લેવું સૌથી સરળ જણાવાય છે.",
+    urgent: "નાની રકમની KCC લોન માટે જમીન ગીરો વગર ઝડપથી મંજૂરી મળે છે; મોટી રકમ માટે iORA પર ઓનલાઇન બોજો દાખલ થાય છે.",
+    scam: "લોન પૂરી ભર્યા પછી બેંકનું No Due Certificate (NDC) લઈ iORA / E-Dhara પર અરજી કરી 7/12 ના 'બીજા હક્ક' માંથી બેંકનું નામ (બોજો) કમી કરાવવું જરૂરી છે, નહીંતર આગળ જમીનના કામ અટકી શકે.",
+    src: ["7/12, 8-અ: anyror.gujarat.gov.in", "બોજો દાખલ/કમી: iora.gujarat.gov.in", "RBI KCC માર્ગદર્શિકા અને NABARD", "Kisan Call Centre: 1800-180-1551"]
+  };
+  (function () {
+    var key = function (d) { return TIER[d.id] === 1 ? 0 : (TIER[d.id] === 2 || d.id === "aadhaar" ? 1 : (TIER[d.id] === 3 ? 3 : 2)); };
+    DOCS = DOCS.map(function (d, i) { return [key(d), i, d]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).map(function (x) { return x[2]; });
+  })();
+  // ===== નવા 3 દસ્તાવેજ પૂરા =====
+
+
+################################################################
+ભાગ 3: નવા પાના માટે 2 લીટીનો ફેરફાર
+################################################################
+3A) શોધો: var VIEWS =   (આખી લીટી આનાથી બદલો)
+var VIEWS = ["home", "calendar", "forms", "services", "more", "faq", "feedback", "about", "contact", "farmer", "bharti"];
+
+3B) તેની નીચેની var TABOF = ... લીટીના છેડે
+contact: "more" };
+ને આનાથી બદલો
+contact: "more", farmer: "home", bharti: "home" };
+
+
+################################################################
+ભાગ 4: ટૅગ + ખેડૂત વિભાગ + ભરતી વિભાગ
+################################################################
+જૂનો બ્લોક (<!-- ===== કાગળસાથી: ઓનલાઇન ટૅગ ... <!-- ===== પૂરું ===== -->) હોય તો પહેલાં ભૂંસો.
+પછી નીચેનો આખો બ્લોક </body> ની ઠીક ઉપર પેસ્ટ કરો:
+
+<!-- ===== કાગળસાથી: VCE/કેફે ટૅગ + ખેડૂત વિભાગ + ભરતી વિભાગ (</body> ની ઠીક પહેલાં પેસ્ટ કરો) ===== -->
+<style>
+.otag { display: inline-block; align-self: flex-start; margin-top: 4px; padding: 2px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; line-height: 1.6; background: var(--good-bg); color: var(--good); }
+.otag.o2 { background: var(--t3-bg); color: var(--t3); }
+.onote { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: var(--tint); color: var(--ink); font-size: 0.92rem; line-height: 1.7; }
+.onl-off { display: none !important; }
+.onbox, .vbox { display: flex; flex-direction: column; gap: 10px; }
+.vlinks { display: grid; gap: 10px; }
+.vlinks .btn { text-align: center; }
+.vrow { display: flex; gap: 10px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.vrow b { display: block; line-height: 1.5; }
+.vrow small { display: block; color: var(--muted); line-height: 1.5; }
+</style>
+<script>
+(function () {
+  var docsEl = document.getElementById("docs");
+  var docsSec = docsEl && docsEl.parentNode;
+  if (!docsEl || !docsSec) return;
+  var main = docsSec.parentNode;
+
+  /* ---------- ભાગ 1: સેવા ટૅગ ---------- */
+  // 1 = ગ્રામ પંચાયત VCE (e-Gram), 2 = Cyber Cafe / Xerox Shop (General Online)
+  var ONLINE = {
+    land: 1, income: 1, caste: 1, ncl: 1, ews: 1, domicile: 1, widow: 1, senior: 1, ration: 1,
+    birth: 1, death: 1, marriage: 1, ayushman: 1,
+    pan: 2, voter: 2, udyam: 2, license: 2
+  };
+  var OTXT = {
+    1: "🏛️ ગ્રામ પંચાયત VCE (e-Gram) પર થશે",
+    2: "🖨️ Cyber Cafe / Xerox Shop પર થશે (General Online)"
+  };
+  // કયા ભાગ માટે અને ક્યાં કચેરી જવું પડે (સામાન્ય માહિતી, ચકાસો)
+  var ONOTE = {
+    land: "ડિજિટલ 7/12 અને 8-અ ની નકલ VCE પરથી મળે. જમીનમાં નોંધ કે સુધારા માટે તલાટી/મામલતદાર કચેરી જવું પડી શકે.",
+    birth: "જન્મની એન્ટ્રી e-Olakh પર થાય. મોડી નોંધણી કે સુધારા માટે તલાટી/કચેરીની મંજૂરી જોઈએ.",
+    death: "મરણની એન્ટ્રી e-Olakh પર થાય. મોડી નોંધણી કે સુધારા માટે તલાટી/કચેરીની મંજૂરી જોઈએ.",
+    marriage: "લગ્નની એન્ટ્રી e-Olakh પર થાય. સાક્ષી અને પુરાવા સાથે લઈ જાઓ.",
+    ration: "અરજી VCE પર થાય; મંજૂરી મામલતદાર/પુરવઠા કચેરીમાંથી આવે છે.",
+    ayushman: "આયુષ્માન કાર્ડનું e-KYC VCE પર આધાર OTP/ફિંગરપ્રિન્ટથી થાય.",
+    license: "લર્નિંગ લાઇસન્સની ટેસ્ટ ઓનલાઇન થાય. પાકા લાઇસન્સ માટે RTO માં ટેસ્ટ આપવા જવું પડે.",
+    voter: "ફોર્મ 6/8 અને e-EPIC ઓનલાઇન થાય. કેટલીકવાર BLO ની ચકાસણી આવે.",
+    pan: "PAN ની અરજી ઓનલાઇન થાય; ફી લાગે.",
+    udyam: "Udyam નોંધણી સત્તાવાર પોર્ટલ પર મફત છે. કેફેને માત્ર મદદની સેવા ફી જ આપવી."
+  };
+  docsEl.querySelectorAll(".doc").forEach(function (a) {
+    var id = a.dataset.id, t = ONLINE[id];
+    if (!t) return;
+    a.setAttribute("data-onl", t);
+    var anchor = a.querySelector(".doc-title .tier") || a.querySelector(".doc-title .doc-en");
+    var tag = document.createElement("span");
+    tag.className = "otag o" + t;
+    tag.textContent = OTXT[t];
+    if (anchor) anchor.parentNode.insertBefore(tag, anchor.nextSibling);
+    var body = a.querySelector(".doc-body");
+    if (body && ONOTE[id]) {
+      var n = document.createElement("p");
+      n.className = "onote";
+      n.textContent = ONOTE[id];
+      body.insertBefore(n, body.firstChild.nextSibling || null);
+    }
+  });
+
+  var box = document.createElement("div");
+  box.className = "onbox";
+  box.innerHTML =
+    '<p class="rulebox">ગામમાં બે જગ્યાએથી કામ થાય: <b>ગ્રામ પંચાયત VCE (e-Gram)</b> સરકારી ડિજિટલ ગુજરાતની અરજીઓ કરે છે, અને <b>સાયબર કેફે / ઝેરોક્ષ શોપ</b> સામાન્ય ઓનલાઇન ફોર્મ, સ્કેન અને ઝેરોક્ષ કરે છે. આધાર, મોબાઇલ (OTP) અને કાગળ સાથે રાખો. કેફે કે એજન્ટ જે રૂપિયા માંગે તે દરેક દસ્તાવેજમાં આપેલા “એજન્ટ ફી ચેક” થી તપાસો.</p>' +
+    '<div class="seg" id="onfilter" role="group" aria-label="ક્યાં થશે તે પસંદ કરો">' +
+      '<button class="segbtn" type="button" data-on="" aria-pressed="true">બધા</button>' +
+      '<button class="segbtn" type="button" data-on="1" aria-pressed="false">🏛️ VCE (e-Gram)</button>' +
+      '<button class="segbtn" type="button" data-on="2" aria-pressed="false">🖨️ કેફે / ઝેરોક્ષ</button>' +
+    '</div>' +
+    '<p class="hint" id="onempty" hidden>આ પસંદગીમાં કોઈ દસ્તાવેજ મળ્યો નથી. “બધા” દબાવો.</p>';
+  docsSec.insertBefore(box, docsEl);
+  var bar = box.querySelector("#onfilter"), empty = box.querySelector("#onempty");
+  bar.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-on]");
+    if (!b) return;
+    var v = b.getAttribute("data-on");
+    bar.querySelectorAll(".segbtn").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    var shown = 0;
+    docsEl.querySelectorAll(".doc").forEach(function (a) {
+      var off = !!v && a.getAttribute("data-onl") !== v;
+      a.classList.toggle("onl-off", off);
+      if (!off && !a.hidden) shown++;
+    });
+    empty.hidden = !v || shown !== 0;
+  });
+
+  /* ---------- ભાગ 2 અને 3: અલગ વિભાગ (ટૅબ જેવા પાના) ---------- */
+  function openDoc(id) {
+    try { location.hash = "home"; } catch (e) {}
+    setTimeout(function () {
+      var a = docsEl.querySelector('.doc[data-id="' + id + '"]');
+      if (!a) return;
+      var head = a.querySelector(".doc-head");
+      if (head && head.getAttribute("aria-expanded") !== "true") head.click();
+      a.scrollIntoView({ block: "start" });
+    }, 120);
+  }
+  function mk(view, label, html) {
+    var s = document.createElement("section");
+    s.className = "sec";
+    s.setAttribute("data-view", view);
+    s.setAttribute("aria-label", label);
+    s.hidden = true;
+    s.innerHTML = '<div class="vbox"><button class="btn ghost" type="button" data-back>← હોમ</button>' + html + "</div>";
+    s.querySelector("[data-back]").addEventListener("click", function () { location.hash = "home"; });
+    main.insertBefore(s, docsSec.nextSibling);
+    return s;
+  }
+  function link(url, text, ghost) {
+    return '<a class="btn' + (ghost ? " ghost" : "") + '" href="' + url + '" target="_blank" rel="noopener">' + text + "</a>";
+  }
+
+  // 🌾 ખેડૂત વિભાગ (khedutVibhag)
+  var farmDocs = [
+    ["land", "7/12, 8-અ અને હક્ક પત્રક નં. 6", "AnyRoR / E-Dhara પરથી ડિજિટલ નકલ"],
+    ["khedut", "ખેડૂત ખાતેદાર પ્રમાણપત્ર", "iORA પરથી"],
+    ["kcc", "કિસાન ક્રેડિટ કાર્ડ (KCC), પાક ધિરાણ અને બોજો કમી", "iORA + બેંકનું NDC"],
+    ["pedhinamu", "પેઢીનામું (જમીન વારસાઈ નોંધ માટે)", "તલાટી + E-Dhara. વારસાઈ નોંધની પ્રક્રિયા તલાટી/ઈ-ધારા કેન્દ્રમાં પૂછી લો"]
+  ];
+  var fh = '<h2>🌾 ખેડૂત વિભાગ</h2><p class="hint">ખેતી અને જમીનને લગતા કાગળ એક જગ્યાએ. કાર્ડ પર “ખોલો” દબાવો એટલે કાગળ, પગલાં અને ફી દેખાશે.</p>';
+  farmDocs.forEach(function (f) {
+    fh += '<div class="vrow"><div><b>' + f[1] + "</b><small>" + f[2] + '</small></div><button class="btn" type="button" data-open="' + f[0] + '">ખોલો</button></div>';
+  });
+  fh += '<h3>સીધા ખેડૂત પોર્ટલ</h3><div class="vlinks">' +
+    link("https://anyror.gujarat.gov.in/", "AnyRoR (7/12, 8-અ)") +
+    link("https://iora.gujarat.gov.in/", "iORA (ખાતેદાર, બોજો)") +
+    link("https://ikhedut.gujarat.gov.in/", "i-Khedut (ખેડૂત યોજનાઓ)") +
+    link("https://pmkisan.gov.in/", "PM-Kisan") + "</div>" +
+    '<p class="rulebox">સરનામું .gov.in પર પૂરું થાય તે જ સત્તાવાર છે. ખેડૂત યોજનાનું ફોર્મ ભરવા કોઈને વધારે પૈસા ન આપો.</p>';
+  var farm = mk("farmer", "ખેડૂત વિભાગ", fh);
+
+  // 📢 સરકારી ભરતી વિભાગ (sarkariBhartiVibhag)
+  var bh = '<h2>📢 સરકારી ભરતી (ગુજરાત)</h2>' +
+    '<p>નવી ભરતીની જાહેરાત અને ઓનલાઇન ફોર્મ માટે નીચેની લિંક ખોલો. અહીં ભરતીની યાદી લાઇવ દેખાતી નથી; દરેક લિંક સીધી તે સાઇટ પર લઈ જાય છે.</p>' +
+    '<div class="vlinks">' +
+      link("https://ojas.gujarat.gov.in/", "OJAS Gujarat (સત્તાવાર ભરતી પોર્ટલ)") +
+      link("https://gpsc-ojas.gujarat.gov.in/", "GPSC OJAS (સત્તાવાર)") +
+      link("https://www.marugujarat.in/", "Maru Gujarat (ભરતી સમાચાર, કોલ લેટર, પરિણામ)", true) +
+    "</div>" +
+    '<p class="rulebox">Maru Gujarat સરકારી સાઇટ નથી, ફક્ત સમાચાર માટે છે. ફોર્મ ફક્ત સત્તાવાર ojas.gujarat.gov.in / gpsc-ojas.gujarat.gov.in પર જ ભરો.</p>' +
+    '<div class="card"><h3>Cyber Cafe પર જતા પહેલા સાથે રાખવાનું</h3><ul class="checks">' +
+      '<li><span>આધાર કાર્ડ <em class="mandpill">જરૂરી</em></span></li>' +
+      '<li><span>ધોરણ 10 / 12 / ડિગ્રીની માર્કશીટ <em class="mandpill">જરૂરી</em></span></li>' +
+      '<li><span>શાળા છોડ્યાનું પ્રમાણપત્ર (LC) <em class="mandpill">જરૂરી</em></span></li>' +
+      '<li><span>ફોટો અને સહી (સ્કેન), સાઇઝ જાહેરાતમાં લખ્યા મુજબ, ઘણીવાર લગભગ 15KB <em class="mandpill">જરૂરી</em></span></li>' +
+      '<li><span>જાતિનો દાખલો <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em></span></li>' +
+      '<li><span>માન્ય NCL પ્રમાણપત્ર <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em></span></li>' +
+      '<li><span>EWS પ્રમાણપત્ર <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em></span></li>' +
+      '<li><span>UDID (દિવ્યાંગ) કાર્ડ <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em></span></li>' +
+      '<li><span>વિધવા પ્રમાણપત્ર <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em></span></li>' +
+    "</ul></div>" +
+    '<p class="rulebox"><strong>પ્રો-ટિપ:</strong> ફોર્મ ભરતા પહેલાં NCL અને EWS પર લખેલી તારીખ તપાસો. જાહેરાતમાં માંગેલી તારીખ કે નાણાકીય વર્ષ મુજબ તે માન્ય છે કે નહીં, જાહેરાત વાંચીને ખાતરી કરો. એક્સપાયર થયેલા દાખલાથી ફોર્મ રદ થઈ શકે છે.</p>';
+  var bharti = mk("bharti", "સરકારી ભરતી વિભાગ", bh);
+
+  farm.querySelectorAll("[data-open]").forEach(function (b) {
+    b.addEventListener("click", function () { openDoc(b.getAttribute("data-open")); });
+  });
+
+  // હોમ પરના ટાઇલ (બટન) ઉમેરવા
+  var tiles = document.querySelector(".tiles");
+  if (tiles) {
+    [["farmer", "🌾", "ખેડૂત વિભાગ"], ["bharti", "📢", "સરકારી ભરતી"]].forEach(function (t) {
+      var b = document.createElement("button");
+      b.className = "tile";
+      b.type = "button";
+      b.innerHTML = '<span class="ti" aria-hidden="true">' + t[1] + "</span><span>" + t[2] + "</span>";
+      b.addEventListener("click", function () { location.hash = t[0]; });
+      tiles.appendChild(b);
+    });
+  }
+})();
+</script>
+<!-- ===== પૂરું ===== -->
