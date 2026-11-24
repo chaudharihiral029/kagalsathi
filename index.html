@@ -2000,3 +2000,33 @@ footer { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
 </script>
 
 </body></html>
+# Run in the folder that has index.html:  python update_index.py
+import re, shutil
+p = "index.html"
+shutil.copy(p, "index.backup.html")
+s = open(p, encoding="utf8").read()
+
+def rep(old, new):
+    global s
+    if s.count(old) != 1:
+        raise SystemExit("રોકાઈ ગયું: આ ભાગ એક વાર મળ્યો નથી -> " + old[:50])
+    s = s.replace(old, new)
+
+rep("ncl: 2, ews: 2, domicile: 2, khedut: 2, senior: 2,", "ncl: 2, ews: 2, domicile: 2, khedut: 2, senior: 2, widow: 2,")
+rep("voter: 3, pan: 3, license: 3, udid: 3", "voter: 3, pan: 3, license: 3, udid: 3, pcc: 3, gazette: 3")
+rep(".optpill {", ".mandpill { font-style: normal; font-size: 0.74rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--good-bg); color: var(--good); white-space: nowrap; }\n.badge-legend { font-size: 0.86rem; color: var(--muted); margin: 6px 0 2px; }\n.optpill {")
+rep("footer { font-size: 0.85rem;", "footer p { margin: 0 0 8px; }\nfooter { font-size: 0.85rem;")
+rep("""(opt(p) ? ' <em class="optpill">વૈકલ્પિક</em>' : '')""", """(opt(p) ? ' <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em>' : ' <em class="mandpill">જરૂરી</em>')""")
+a = """'<div class="block"><h3>સાથે લઈ જવાના કાગળ</h3>' +"""
+rep(a, a + """
+          '<p class="badge-legend"><em class="mandpill">જરૂરી</em> બધા માટે &nbsp; <em class="optpill">વૈકલ્પિક / કેસ મુજબ</em> ફક્ત તમારા કેસમાં હોય તો</p>' +""")
+
+i = s.index("    <footer>"); j = s.index("</footer>") + len("</footer>")
+s = s[:i] + """    <footer>
+      <p>© 2026 કાગળસાથી (Kagalsathi). સર્વ હક્ક સ્વાધીન. All Rights Reserved.</p>
+      <p><strong>સૂચના:</strong> કાગળસાથી એક સ્વતંત્ર નાગરિક માર્ગદર્શિકા છે. તે ગુજરાત સરકાર કે કોઈ સરકારી વિભાગની સત્તાવાર એપ કે વેબસાઇટ નથી, અને સરકાર સાથે તેનો કોઈ સંબંધ નથી. અહીંની માહિતી સામાન્ય માર્ગદર્શન માટે છે; ફી, ફોર્મ, સમય અને નિયમો બદલાઈ શકે છે. અરજી કરતા પહેલાં તલાટી, VCE કે સંબંધિત કચેરીમાં પૂછીને ખાતરી કરો. અહીંની માહિતીના આધારે થયેલા નિર્ણય કે નુકસાન માટે એપ જવાબદાર નથી. સત્તાવાર માહિતી માટે
+      <a href="https://www.digitalgujarat.gov.in" target="_blank" rel="noopener">Digital Gujarat</a> અને
+      <a href="https://uidai.gov.in" target="_blank" rel="noopener">UIDAI</a> જુઓ.</p>
+    </footer>""" + s[j:]
+open(p, "w", encoding="utf8").write(s)
+print("થઈ ગયું. બેકઅપ: index.backup.html")
