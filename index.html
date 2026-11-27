@@ -2211,3 +2211,88 @@ footer { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
   }
 })();
 </script>
+<style>
+:root {
+  --bg: #faf7f2;
+  --surface: #fffdf9;
+  --line: #e7e0d5;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --brand: #155e3b;
+  --brand-ink: #ffffff;
+  --tint: #e6f0e8;
+  --warn: #b45309;
+  --warn-bg: #fdf0dc;
+  --good: #155e3b;
+  --good-bg: #e3efe6;
+}
+body { line-height: 1.7; }
+.doc { border-left: 5px solid var(--brand); border-radius: 10px; box-shadow: none; }
+.doc.open { box-shadow: none; }
+.notice { border-width: 1px; border-left: 5px solid var(--warn); }
+.groundnote { margin: 0; font-size: 0.95rem; color: var(--muted); border-left: 3px solid var(--warn); padding-left: 12px; }
+.searchbox input { background: var(--surface); }
+footer { border-top: 1px solid var(--line); padding-top: 16px; text-align: center; }
+</style>
+<script>
+(function () {
+  function run() {
+    /* હેડર: સાદું લખાણ અને નાની નોંધ */
+    var lead = document.querySelector("header.top .lead");
+    if (lead) {
+      lead.textContent = "કચેરીના ધક્કા અને ખોટા ખર્ચથી બચવા માટે — ગામ અને શહેરના નાગરિકો માટે સાદી ભાષામાં માહિતી.";
+      if (!document.querySelector(".groundnote")) {
+        var gn = document.createElement("p");
+        gn.className = "groundnote";
+        gn.textContent = "સંશોધન નોંધ અને સત્તાવાર પોર્ટલ મુજબ તૈયાર કરેલી માર્ગદર્શિકા. ફી અને નિયમ બદલાઈ શકે, કચેરીમાં ચકાસી લો.";
+        lead.parentNode.insertBefore(gn, lead.nextSibling);
+      }
+    }
+
+    /* શોધ બોક્સ */
+    var s = document.getElementById("search");
+    if (s) s.placeholder = "કયા કામ માટે દાખલો જોઈએ છે? (દા.ત. 7/12, આવક, રેશન કાર્ડ, આયુષ્માન, KCC, સોગંદનામું)";
+
+    /* કાર્ડની અંદરના મથાળા */
+    var MAP = {
+      "સાથે લઈ જવાના કાગળ": "જરૂરી કાગળો (કયું ફરજિયાત અને કયું સંજોગ મુજબ)",
+      "વધુ જાણો": "કચેરીમાં જતા પહેલા આટલું ખાસ ધ્યાન રાખો",
+      "લોકોના સવાલ": "લોકોના સામાન્ય પ્રશ્નો",
+      "સત્તાવાર સ્ત્રોત અને હેલ્પલાઇન": "સત્તાવાર લિંક્સ (ખાતરી માટે)"
+    };
+    document.querySelectorAll(".doc-body h3, .doc-body .xd summary, .doc-body h4").forEach(function (el) {
+      var t = el.textContent.trim();
+      if (MAP[t]) el.textContent = MAP[t];
+    });
+
+    /* સત્તાવાર લિંક્સની યાદીમાં વેબસાઇટના નામ ક્લિક થાય તેવા બનાવવા */
+    var RE = /((?:[a-z0-9-]+\.)+(?:gov\.in|nic\.in)|onlineservices\.nsdl\.com|pan\.utiitsl\.com)(\/[^\s,)]*)?/gi;
+    document.querySelectorAll(".doc-body .xd").forEach(function (d) {
+      var sm = d.querySelector("summary");
+      if (!sm || sm.textContent.trim() !== "સત્તાવાર લિંક્સ (ખાતરી માટે)") return;
+      d.querySelectorAll("li").forEach(function (li) {
+        if (li.querySelector("a")) return;
+        var txt = li.textContent, last = 0, m, frag = document.createDocumentFragment(), hit = false;
+        RE.lastIndex = 0;
+        while ((m = RE.exec(txt)) !== null) {
+          hit = true;
+          frag.appendChild(document.createTextNode(txt.slice(last, m.index)));
+          var a = document.createElement("a");
+          a.href = "https://" + m[1].toLowerCase() + (m[2] || "");
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = m[0];
+          frag.appendChild(a);
+          last = m.index + m[0].length;
+        }
+        if (!hit) return;
+        frag.appendChild(document.createTextNode(txt.slice(last)));
+        li.textContent = "";
+        li.appendChild(frag);
+      });
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+})();
+</script>
